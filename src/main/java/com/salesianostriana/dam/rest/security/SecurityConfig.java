@@ -82,7 +82,14 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                         .authorizeHttpRequests((authz) -> authz
-                                .anyRequest().permitAll());
+                                .requestMatchers(
+                                        antMatcher("/auth/register/admin"))
+                                .hasRole("ADMIN")
+                                .requestMatchers(
+                                        antMatcher("task/**")
+                                )
+                                .hasRole("USER")
+                                .anyRequest().authenticated());
 
 
 

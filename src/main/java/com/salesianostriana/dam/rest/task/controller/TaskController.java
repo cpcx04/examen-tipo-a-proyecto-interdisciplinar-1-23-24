@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.rest.task.controller;
 
+import com.salesianostriana.dam.rest.error.exception.NoTasksException;
 import com.salesianostriana.dam.rest.task.GetTaskDto;
 import com.salesianostriana.dam.rest.task.model.Task;
 import com.salesianostriana.dam.rest.task.repo.TaskRepository;
@@ -24,7 +25,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAll() {
         List<Task> result = taskRepository.findAll();
         if (result.isEmpty()) {
-            // Completar
+            throw new NoTasksException("No Task avaiables");
         }
         return ResponseEntity.ok(result);
 
@@ -35,7 +36,7 @@ public class TaskController {
     public ResponseEntity<Task> getById(@PathVariable Long id) {
         Optional<Task> result = taskRepository.findById(id);
         if (result.isEmpty()) {
-            // Completar
+            // Terminar si da tiempo
         }
         return ResponseEntity.ok(result.get());
 

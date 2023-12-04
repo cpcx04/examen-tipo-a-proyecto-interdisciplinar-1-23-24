@@ -3,6 +3,7 @@ package com.salesianostriana.dam.rest.user.controller;
 import com.salesianostriana.dam.rest.security.jwt.access.JwtProvider;
 import com.salesianostriana.dam.rest.user.dto.*;
 import com.salesianostriana.dam.rest.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import com.salesianostriana.dam.rest.user.model.User;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class UserController {
 
 
     @PostMapping("/auth/register")
-    public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<UserResponse> createUserWithUserRole(@Valid @RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithUserRole(createUserRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
